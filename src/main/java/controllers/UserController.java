@@ -19,12 +19,12 @@ public class UserController {
     public ModelAndView showForm() {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("user", new User());
-        return  modelAndView;
+        return modelAndView;
     }
 
     @PostMapping
     public ModelAndView checkValidation(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
-        System.out.println(bindingResult);
+        new User().validate(user, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("index");
         }

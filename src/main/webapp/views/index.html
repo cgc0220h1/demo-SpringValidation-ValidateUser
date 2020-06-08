@@ -16,7 +16,7 @@
                 <input type="text" id="user-name" th:field="*{name}">
             </td>
             <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-                Name Error
+                Tên lỗi hiển thị ở đây
             </td>
         </tr>
         <tr>
@@ -27,7 +27,20 @@
                 <input type="text" id="user-age" th:field="*{age}">
             </td>
             <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">
-                Age Error
+                Tuổi lỗi hiển thị ở đây
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="user-phone">User Phone</label>
+            </td>
+            <td>
+                <input type="text" id="user-phone" th:field="*{phone}">
+            </td>
+            <td>
+                <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">
+                    Số điện thoại lỗi hiển thị ở đây
+                </p>
             </td>
         </tr>
         <tr>
