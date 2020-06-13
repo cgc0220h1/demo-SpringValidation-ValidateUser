@@ -1,24 +1,24 @@
 package model;
 
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
-import org.springframework.validation.Validator;
-
-import javax.validation.ConstraintViolation;
 import javax.validation.constraints.*;
-import java.util.Set;
 
 
-public class User implements Validator {
+public class User {
 
-    @NotNull
-    @Size(min = 2, max = 30)
+    @NotNull(message = "Name cannot be empty")
+    @Size(min = 2, max = 30
+            , message = "Name must be within {min} and {max} characters")
     private String name;
 
-    @Min(18)
+    @Min(value = 18, message = "Age must be older than {value}")
+    @NotNull(message = "Name cannot be empty")
     private int age;
 
-
+    @NotNull(message = "{number.empty}")
+    @Size(min = 10, max = 11,
+            message ="Phone numbers must be between {min} and {max} numbers")
+    @Pattern(regexp = "^0\\d*", message = "{number.startsWith}")
+    @Pattern(regexp = "(^$|[0-9]*$)", message = "{number.matches}")
     private String phone;
 
     public String getName() {
@@ -43,29 +43,5 @@ public class User implements Validator {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return User.class.isAssignableFrom(clazz);
-    }
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        User user = (User) target;
-
-        String phoneNumber = user.getPhone();
-
-        ValidationUtils.rejectIfEmpty(errors, "phone", "number.empty");
-
-        if (phoneNumber.length() > 11 || phoneNumber.length() < 10) {
-            errors.rejectValue("phone", "number.length");
-        }
-        if (!phoneNumber.startsWith("0")) {
-            errors.rejectValue("phone", "number.startsWith");
-        }
-        if (!phoneNumber.matches("(^$|[0-9]*$)")) {
-            errors.rejectValue("phone", "number.matches");
-        }
     }
 }

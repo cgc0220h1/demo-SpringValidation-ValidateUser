@@ -15,16 +15,16 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping
+    @GetMapping(produces = "text/html; charset=utf-8")
     public ModelAndView showForm() {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("user", new User());
         return modelAndView;
     }
 
-    @PostMapping
+    @PostMapping(produces = "text/html; charset=utf-8")
     public ModelAndView checkValidation(@Validated @ModelAttribute("user") User user, BindingResult bindingResult) {
-        new User().validate(user, bindingResult);
+//        new User().validate(user, bindingResult);
         if (bindingResult.hasFieldErrors()) {
             return new ModelAndView("index");
         }
